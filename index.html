@@ -397,6 +397,18 @@ nav {
     padding: 20px 24px !important; 
   }
 
+  /* This forces the scholarship name and amount to stack vertically */
+  .schol-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  /* This ensures the dollar amount doesn't look squished */
+  .schol-amount {
+    margin-left: 0 !important;
+    font-size: 1.1rem !important;
+  }
   /* Stacks the finance cards so they are full width */
   .finance-grid {
     grid-template-columns: 1fr !important;
@@ -413,7 +425,6 @@ nav {
   .hero h1 {
     font-size: 28px !important;
   }
-
   /* Make the scholarship/OOP cards 1-column */
   .oop-grid, .schol-cols {
     grid-template-columns: 1fr !important;
