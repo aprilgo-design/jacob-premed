@@ -70,6 +70,7 @@ nav {
   gap: 4px;
   list-style: none;
   flex-wrap: wrap;
+  padding-top: 15px; /* Add this line */
 }
 .nav-links a {
   color: rgba(255,255,255,0.75);
@@ -390,23 +391,28 @@ nav {
   gap: 20px;
 }
 @media (max-width: 700px) {
-  /* Stack the finance cards so they are full width */
+  /* Adds room to the top and bottom of the nav bar on mobile */
+  .nav-inner {
+    height: auto !important;
+    padding: 20px 24px !important; 
+  }
+
+  /* Stacks the finance cards so they are full width */
   .finance-grid {
     grid-template-columns: 1fr !important;
   }
 
-  /* Make the navigation links stack or wrap better */
+  /* Centers the links and adds spacing between them */
   .nav-links {
     justify-content: center;
+    gap: 12px;
     padding-bottom: 10px;
   }
 
-  /* Shrink the hero text so it doesn't wrap awkwardly */
+  /* Shrink the hero text for mobile */
   .hero h1 {
     font-size: 28px !important;
   }
-
-  /* ── MOBILE RESPONSIVENESS ── */
 
   /* Make the scholarship/OOP cards 1-column */
   .oop-grid, .schol-cols {
