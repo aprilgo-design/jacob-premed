@@ -42,12 +42,18 @@ body {
 }
 
 /* ── NAV ── */
+/* Add this so the JS can hide the nav */
+/* ── NAV ── */
+
 nav {
-  background: var(--navy);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 2px solid var(--gold);
+  position: fixed; /* Ensures it stays at the top to be hidden */
+  transition: transform 0.3s ease-in-out; /* This makes it slide smoothly */
+  /* ... your other nav styles (background, etc.) ... */
+}
+
+/* Add this right below the nav block */
+.nav-hidden {
+  transform: translateY(-100%);
 }
 .nav-inner {
   max-width: 1100px;
@@ -96,6 +102,7 @@ nav {
   text-align: center;
   position: relative;
   overflow: hidden;
+  margin-top: 80px;
 }
 .hero::before {
   content: '';
@@ -418,17 +425,17 @@ nav {
     font-size: 15px !important;
   }
   /* This forces the scholarship name and amount to stack vertically */
-  .schol-item {
+.scholarship-item, .schol-item {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 8px !important;
   }
 
-  /* This ensures the dollar amount doesn't look squished */
   .schol-amount {
     margin-left: 0 !important;
-    font-size: 1.1rem !important;
+    font-weight: bold;
   }
+  
   /* Stacks the finance cards so they are full width */
   .finance-grid {
     grid-template-columns: 1fr !important;
@@ -3526,5 +3533,25 @@ document.addEventListener('keydown', function(e) {
     </div>
   </div>
 </div>
+<script>
+  // --- Smart Navbar (Hide on Scroll) ---
+  let lastScrollY = window.scrollY;
+  const navbar = document.querySelector('nav');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > lastScrollY && window.scrollY > 100) {
+      navbar.classList.add('nav-hidden');
+    } else {
+      navbar.classList.remove('nav-hidden');
+    }
+    lastScrollY = window.scrollY;
+  });
+
+  // --- Path Switcher Logic (If you have buttons for Math/Science) ---
+  function switchPath(path) {
+    console.log("Switching to path: " + path);
+    // Add your path switching logic here if needed
+  }
+</script>
 </body>
 </html>
