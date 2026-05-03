@@ -86,7 +86,12 @@ nav {
   color: var(--gold);
   background: rgba(201,168,76,0.12);
 }
-
+.nav-links {
+  display: flex;
+  flex-wrap: wrap; /* Allows links to move to a second line on small phones */
+  justify-content: center;
+  gap: 5px;
+}
 /* ── HERO ── */
 .hero {
   background: var(--navy);
@@ -389,7 +394,46 @@ nav {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
-@media (max-width: 700px) { .finance-grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) {
+  /* Stack the finance cards so they are full width */
+  .finance-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Make the navigation links stack or wrap better */
+  .nav-links {
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+
+  /* Shrink the hero text so it doesn't wrap awkwardly */
+  .hero h1 {
+    font-size: 28px !important;
+  }
+
+  /* ── MOBILE RESPONSIVENESS ── */
+@media (max-width: 768px) {
+    /* Stacks the finance and scholarship cards vertically */
+    .finance-grid, .oop-grid, .schol-cols {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Allows the comparison table to scroll sideways so it doesn't squish */
+    .compare-table-container {
+        overflow-x: auto;
+        display: block;
+    }
+
+    /* Adjusts heading sizes for smaller screens */
+    .hero h1 {
+        font-size: 1.8rem !important;
+    }
+}
+  /* Make the scholarship/OOP cards 1-column */
+  .oop-grid, .schol-cols {
+    grid-template-columns: 1fr !important;
+  }
+}
 
 .finance-card {
   background: rgba(255,255,255,0.05);
