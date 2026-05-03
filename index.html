@@ -86,12 +86,7 @@ nav {
   color: var(--gold);
   background: rgba(201,168,76,0.12);
 }
-.nav-links {
-  display: flex;
-  flex-wrap: wrap; /* Allows links to move to a second line on small phones */
-  justify-content: center;
-  gap: 5px;
-}
+
 /* ── HERO ── */
 .hero {
   background: var(--navy);
@@ -412,23 +407,7 @@ nav {
   }
 
   /* ── MOBILE RESPONSIVENESS ── */
-@media (max-width: 768px) {
-    /* Stacks the finance and scholarship cards vertically */
-    .finance-grid, .oop-grid, .schol-cols {
-        grid-template-columns: 1fr !important;
-    }
 
-    /* Allows the comparison table to scroll sideways so it doesn't squish */
-    .compare-table-container {
-        overflow-x: auto;
-        display: block;
-    }
-
-    /* Adjusts heading sizes for smaller screens */
-    .hero h1 {
-        font-size: 1.8rem !important;
-    }
-}
   /* Make the scholarship/OOP cards 1-column */
   .oop-grid, .schol-cols {
     grid-template-columns: 1fr !important;
@@ -619,6 +598,11 @@ footer strong { color: var(--gold); }
 .school-finance.active { display: block; }
 
 /* ── COMPARISON TABLE ── */
+.compare-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
 .compare-table th { background: var(--navy); color: var(--gold); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 12px 14px; text-align: left; }
 .compare-table td { padding: 11px 14px; border-bottom: 1px solid var(--gray-100); vertical-align: top; color: var(--text); }
@@ -658,7 +642,7 @@ footer strong { color: var(--gold); }
   .hero-stats { gap: 24px; }
   .path-tabs { flex-direction: column; }
   .school-tabs { gap: 6px; }
-  .oop-grid { grid-template-columns: 1fr 1fr; }
+  .oop-grid { grid-template-columns: 1fr; }
 }
 
 /* ── MODAL ── */
@@ -705,7 +689,7 @@ footer strong { color: var(--gold); }
   background: rgba(255,255,255,0.12);
   border: none; cursor: pointer;
   color: white; font-size: 18px;
-  width: 32px; height: 32px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
@@ -795,7 +779,6 @@ footer strong { color: var(--gold); }
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">Jacob's Med Path</div>
     <ul class="nav-links">
       <li><a href="#overview">Overview</a></li>
       <li><a href="#math-path" onclick="switchPath('math')">Math Path</a></li>
@@ -1525,7 +1508,7 @@ footer strong { color: var(--gold); }
     <p class="section-title">Side-by-Side Comparison</p>
     <p class="section-sub">All programs at a glance — cheapest room, per semester payment.</p>
     <div class="divider"></div>
-    <div style="overflow-x:auto;">
+    <div class="compare-table-container" role="region" aria-label="Program comparison table" tabindex="0">
       <table class="compare-table">
         <thead>
           <tr>
