@@ -44,11 +44,16 @@ body {
 /* ── NAV ── */
 /* Add this so the JS can hide the nav */
 /* ── NAV ── */
-
+/* ── NAV ── */
 nav {
-  position: fixed; /* Ensures it stays at the top to be hidden */
-  transition: transform 0.3s ease-in-out; /* This makes it slide smoothly */
-  /* ... your other nav styles (background, etc.) ... */
+  position: fixed;
+  top: 0;
+  left: 0;           /* Add this */
+  width: 100%;       /* Add this */
+  z-index: 1000;
+  background: var(--navy); /* Add this to make it solid */
+  border-bottom: 2px solid var(--gold); /* Optional: keeps the gold line */
+  transition: transform 0.3s ease-in-out;
 }
 
 /* Add this right below the nav block */
