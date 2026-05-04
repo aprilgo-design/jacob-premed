@@ -98,7 +98,6 @@ nav {
   color: var(--gold);
   background: rgba(201,168,76,0.12);
 }
-
 /* ── HERO ── */
 .hero {
   background: var(--navy);
@@ -242,6 +241,13 @@ nav {
 }
 .path-tab.active .tab-icon { background: rgba(201,168,76,0.2); }
 
+.path-content {
+  display: none; /* Hides both paths by default */
+}
+
+.path-content.active {
+  display: block !important; /* Shows the path when JS adds the 'active' class */
+}
 /* ── PROGRAM CARDS GRID ── */
 .programs-grid {
   display: grid;
@@ -830,8 +836,8 @@ footer strong { color: var(--gold); }
   <div class="nav-inner">
     <ul class="nav-links">
       <li><a href="#overview">Overview</a></li>
-      <li><a href="#math-path" onclick="switchPath('math')">Math Path</a></li>
-      <li><a href="#math-path" onclick="switchPath('science')">Science Path</a></li>
+      <li style="list-style: none;"><a href="javascript:void(0)" onclick="switchPath('math')">Math Path</a></li>
+      <li style="list-style: none;"><a href="javascript:void(0)" onclick="switchPath('science')">Science Path</a></li>
       <li><a href="#compare">Compare</a></li>
       <li><a href="#requirements">Requirements</a></li>
       <li><a href="#scholarships">Scholarships</a></li>
@@ -3553,10 +3559,18 @@ document.addEventListener('keydown', function(e) {
   });
 
   // --- Path Switcher Logic (If you have buttons for Math/Science) ---
-  function switchPath(path) {
-    console.log("Switching to path: " + path);
-    // Add your path switching logic here if needed
-  }
+  // --- Path Switcher Logic ---
+function switchPath(path) {
+  // Hide both sections first
+  document.getElementById('content-math').style.display = 'none';
+  document.getElementById('content-science').style.display = 'none';
+
+  // Show the one Jacob clicked
+  document.getElementById('content-' + path).style.display = 'block';
+
+  // Scroll to the specific path content so the user sees it immediately
+  document.getElementById('content-' + path).scrollIntoView({ behavior: 'smooth' });
+}
 </script>
 </body>
 </html>
