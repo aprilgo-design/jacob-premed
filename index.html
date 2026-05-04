@@ -1,3 +1,4 @@
+\
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,26 +40,19 @@ body {
   color: var(--text);
   line-height: 1.6;
   font-size: 15px;
+  padding-top: 58px; /* fixed nav height */
 }
+html, body { overflow-x: hidden; max-width: 100%; }
 
-/* ── NAV ── */
-/* Add this so the JS can hide the nav */
-/* ── NAV ── */
 /* ── NAV ── */
 nav {
   position: fixed;
   top: 0;
-  left: 0;           /* Add this */
-  width: 100%;       /* Add this */
-  z-index: 1000;
-  background: var(--navy); /* Add this to make it solid */
-  border-bottom: 2px solid var(--gold); /* Optional: keeps the gold line */
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Add this right below the nav block */
-.nav-hidden {
-  transform: translateY(-100%);
+  left: 0;
+  width: 100%;
+  z-index: 1100;
+  background: var(--navy);
+  border-bottom: 2px solid var(--gold);
 }
 .nav-inner {
   max-width: 1100px;
@@ -75,13 +69,13 @@ nav {
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.02em;
+  flex-shrink: 0;
 }
 .nav-links {
   display: flex;
   gap: 4px;
   list-style: none;
   flex-wrap: wrap;
-  padding-top: 15px; /* Add this line */
 }
 .nav-links a {
   color: rgba(255,255,255,0.75);
@@ -93,10 +87,64 @@ nav {
   transition: all 0.2s;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .nav-links a:hover, .nav-links a.active {
   color: var(--gold);
   background: rgba(201,168,76,0.12);
+}
+/* Hamburger button — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+/* Mobile nav drawer */
+.nav-mobile-menu {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: var(--navy);
+  border-bottom: 2px solid var(--gold);
+  flex-direction: column;
+  padding: 8px 0 16px;
+  box-shadow: 0 8px 24px rgba(10,22,40,0.3);
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu li {
+  list-style: none;
+}
+.nav-mobile-menu a {
+  display: block;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 24px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.2s;
+}
+.nav-mobile-menu a:hover {
+  color: var(--gold);
+  background: rgba(201,168,76,0.08);
 }
 /* ── HERO ── */
 .hero {
@@ -106,7 +154,7 @@ nav {
   text-align: center;
   position: relative;
   overflow: hidden;
-  margin-top: 80px;
+  
 }
 .hero::before {
   content: '';
@@ -690,14 +738,103 @@ footer strong { color: var(--gold); }
 .resp-row.highlight .lbl { color: var(--teal); font-weight: 600; }
 .resp-row.highlight .val { color: var(--teal); font-size: 15px; }
 
+/* ══ MOBILE — hamburger breakpoint ══ */
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-inner { padding: 0 16px; }
+  body { padding-top: 58px; } /* ensure hero clears fixed nav on mobile */
+}
+
+@media (min-width: 861px) {
+  .nav-mobile-menu { display: none !important; }
+  .nav-hamburger { display: none !important; }
+}
+
+/* ══ MOBILE — layout ══ */
 @media (max-width: 700px) {
+  /* Sections */
+  .section { padding: 32px 16px; }
+  .hero { padding: 40px 16px 32px; }
+
+  /* Programs */
   .programs-grid { grid-template-columns: 1fr; }
-  .timeline { flex-direction: column; }
-  .timeline::before { display: none; }
-  .hero-stats { gap: 24px; }
+
+  /* Hero */
+  .hero-stats { gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .hero-stat .num { font-size: 22px; }
+
+  /* Path tabs */
   .path-tabs { flex-direction: column; }
-  .school-tabs { gap: 6px; }
+
+  /* Finance tabs */
+  .school-tabs { gap: 4px; }
+  .school-tab { font-size: 11px; padding: 7px 10px; }
+
+  /* OOP grid */
+  .oop-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Tips */
+  .tips-grid { grid-template-columns: 1fr; }
+
+  /* Section title */
+  .section-title { font-size: 22px; }
+
+  /* Scholarships */
+  .schol-cols { grid-template-columns: 1fr !important; }
+  .scholarship-item { flex-wrap: wrap; }
+  .scholarship-item .schol-amount { width: 100%; font-size: 16px; }
+
+  /* Card footer buttons */
+  .card-footer > div:last-child { flex-direction: column; gap: 6px; }
+  .view-req-btn { width: 100%; justify-content: center; font-size: 12px; }
+
+  /* Modals */
+  .modal-overlay { padding: 8px; }
+  .modal-box { max-height: 94vh; }
+  .modal-body { padding: 14px; }
+  .modal-head { padding: 12px 14px; }
+  .modal-head-title { font-size: 13px; }
+  .modal-supp-grid { grid-template-columns: 1fr !important; }
+
+  /* Requirements two-col grids */
+  .req-two-col { grid-template-columns: 1fr !important; }
+
+  /* Finance summary grids in modals */
+  .fin-modal-summary-grid { grid-template-columns: 1fr 1fr !important; }
+
+  /* Resp rows */
+  .resp-row { flex-wrap: wrap; gap: 2px; }
+
+  /* Timeline — vertical, card-style with proper spacing */
+  .timeline { flex-direction: column; gap: 0; }
+  .timeline::before { display: none; }
+  .timeline-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-200);
+    text-align: left;
+  }
+  .timeline-step:last-child { border-bottom: none; }
+  .timeline-dot {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    margin: 0;
+    font-size: 20px;
+    border-radius: 12px;
+  }
+  .timeline-years { margin-bottom: 2px; font-size: 10px; }
+  .timeline-label { font-size: 14px; margin-bottom: 4px; }
+  .timeline-desc { font-size: 12px; line-height: 1.5; color: var(--gray-600); }
+}
+
+@media (max-width: 400px) {
   .oop-grid { grid-template-columns: 1fr; }
+  .school-tab { font-size: 10px; padding: 6px 7px; }
+  .fin-modal-summary-grid { grid-template-columns: 1fr !important; }
 }
 
 /* ── MODAL ── */
@@ -832,19 +969,34 @@ footer strong { color: var(--gold); }
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <div class="nav-inner">
-    <ul class="nav-links">
+    <div class="nav-logo">Jacob's Med Path</div>
+    <ul class="nav-links" id="desktopLinks">
       <li><a href="#overview">Overview</a></li>
-      <li style="list-style: none;"><a href="javascript:void(0)" onclick="switchPath('math')">Math Path</a></li>
-      <li style="list-style: none;"><a href="javascript:void(0)" onclick="switchPath('science')">Science Path</a></li>
+      <li><a href="#math-path" onclick="switchPath('math')">Math Path</a></li>
+      <li><a href="#math-path" onclick="switchPath('science')">Science Path</a></li>
       <li><a href="#compare">Compare</a></li>
       <li><a href="#requirements">Requirements</a></li>
       <li><a href="#scholarships">Scholarships</a></li>
       <li><a href="#finances">Finances</a></li>
       <li><a href="#tips">Tips</a></li>
     </ul>
+    <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <!-- Mobile dropdown menu -->
+  <ul class="nav-mobile-menu" id="mobileMenu">
+    <li><a href="#overview" onclick="closeMobileMenu()">Overview</a></li>
+    <li><a href="#math-path" onclick="switchPath('math'); closeMobileMenu()">Math Path</a></li>
+    <li><a href="#math-path" onclick="switchPath('science'); closeMobileMenu()">Science Path</a></li>
+    <li><a href="#compare" onclick="closeMobileMenu()">Compare</a></li>
+    <li><a href="#requirements" onclick="closeMobileMenu()">Requirements</a></li>
+    <li><a href="#scholarships" onclick="closeMobileMenu()">Scholarships</a></li>
+    <li><a href="#finances" onclick="closeMobileMenu()">Finances</a></li>
+    <li><a href="#tips" onclick="closeMobileMenu()">Tips</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -2566,52 +2718,7 @@ footer strong { color: var(--gold); }
   <p style="margin-top:8px;">OSAP estimates based on $156,000 household income. RESP projections assume ~5% growth + $311/mo contributions (TD $260 + Global $51) to Sept 2027. Scholarship amounts are ranges — confirm eligibility directly.</p>
 </footer>
 
-<script>
-function switchPath(path) {
-  document.querySelectorAll('.path-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.path-tab').forEach(el => el.classList.remove('active'));
-  document.getElementById('content-' + path).classList.add('active');
-  document.getElementById('tab-' + path).classList.add('active');
-  setTimeout(function() {
-    document.getElementById('math-path').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 10);
-}
-
-function switchSchool(school) {
-  document.querySelectorAll('.school-finance').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.school-tab').forEach(el => el.classList.remove('active'));
-  document.getElementById('fin-' + school).classList.add('active');
-  event.target.classList.add('active');
-}
-
-// Smooth scroll for nav links
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    if (href && href.startsWith('#')) {
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-
-// Active nav link on scroll
-const sections = document.querySelectorAll('.anchor-section');
-const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => {
-    if (window.scrollY >= section.offsetTop - 100) {
-      current = section.getAttribute('id');
-    }
-  });
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
-  });
-});
-</script>
+<!-- scripts consolidated at bottom of file -->
 
 <!-- ══════════════════════════════════════════
      MODALS — Program Requirements
@@ -3545,32 +3652,109 @@ document.addEventListener('keydown', function(e) {
   </div>
 </div>
 <script>
-  // --- Smart Navbar (Hide on Scroll) ---
-  let lastScrollY = window.scrollY;
-  const navbar = document.querySelector('nav');
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > lastScrollY && window.scrollY > 100) {
-      navbar.classList.add('nav-hidden');
-    } else {
-      navbar.classList.remove('nav-hidden');
-    }
-    lastScrollY = window.scrollY;
-  });
-
-  // --- Path Switcher Logic (If you have buttons for Math/Science) ---
-  // --- Path Switcher Logic ---
+// ── Path switcher — restores active class system ──────────────────────────
 function switchPath(path) {
-  // Hide both sections first
-  document.getElementById('content-math').style.display = 'none';
-  document.getElementById('content-science').style.display = 'none';
-
-  // Show the one Jacob clicked
-  document.getElementById('content-' + path).style.display = 'block';
-
-  // Scroll to the specific path content so the user sees it immediately
-  document.getElementById('content-' + path).scrollIntoView({ behavior: 'smooth' });
+  document.querySelectorAll('.path-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.path-tab').forEach(el => el.classList.remove('active'));
+  var content = document.getElementById('content-' + path);
+  var tab = document.getElementById('tab-' + path);
+  if (content) content.classList.add('active');
+  if (tab) tab.classList.add('active');
+  setTimeout(function() {
+    var section = document.getElementById('math-path');
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 10);
 }
+
+// ── School finance tab switcher ───────────────────────────────────────────
+function switchSchool(school) {
+  document.querySelectorAll('.school-finance').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.school-tab').forEach(el => el.classList.remove('active'));
+  var fin = document.getElementById('fin-' + school);
+  var tab = event.target;
+  if (fin) fin.classList.add('active');
+  if (tab) tab.classList.add('active');
+}
+
+// ── Modal helpers ─────────────────────────────────────────────────────────
+function openModal(id) {
+  var el = document.getElementById(id);
+  if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; }
+}
+function closeModal(id) {
+  var el = document.getElementById(id);
+  if (el) { el.classList.remove('open'); document.body.style.overflow = ''; }
+}
+function closeModalOnOverlay(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(function(m) {
+      m.classList.remove('open');
+    });
+    document.body.style.overflow = '';
+  }
+});
+
+// ── Hamburger menu ────────────────────────────────────────────────────────
+function toggleMobileMenu() {
+  var menu = document.getElementById('mobileMenu');
+  var btn = document.getElementById('hamburgerBtn');
+  var isOpen = menu.classList.toggle('open');
+  btn.setAttribute('aria-expanded', isOpen);
+  // Animate the hamburger bars
+  var bars = btn.querySelectorAll('span');
+  if (isOpen) {
+    bars[0].style.transform = 'translateY(7px) rotate(45deg)';
+    bars[1].style.opacity = '0';
+    bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  } else {
+    bars[0].style.transform = '';
+    bars[1].style.opacity = '';
+    bars[2].style.transform = '';
+  }
+}
+function closeMobileMenu() {
+  var menu = document.getElementById('mobileMenu');
+  var btn = document.getElementById('hamburgerBtn');
+  menu.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
+  var bars = btn.querySelectorAll('span');
+  bars[0].style.transform = ''; bars[1].style.opacity = ''; bars[2].style.transform = '';
+}
+// Close mobile menu on outside click
+document.addEventListener('click', function(e) {
+  var nav = document.getElementById('mainNav');
+  if (nav && !nav.contains(e.target)) closeMobileMenu();
+});
+
+// ── Active nav on scroll ──────────────────────────────────────────────────
+var sections = document.querySelectorAll('.anchor-section');
+var navLinks = document.querySelectorAll('.nav-links a, .nav-mobile-menu a');
+window.addEventListener('scroll', function() {
+  var current = '';
+  sections.forEach(function(s) {
+    if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+  });
+  navLinks.forEach(function(a) {
+    a.classList.remove('active');
+    var href = a.getAttribute('href');
+    if (href === '#' + current) a.classList.add('active');
+  });
+});
+
+// ── Smooth scroll for nav links ───────────────────────────────────────────
+document.querySelectorAll('.nav-links a, .nav-mobile-menu a').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    var href = this.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      var target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
 </script>
 </body>
 </html>
